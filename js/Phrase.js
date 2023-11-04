@@ -2,7 +2,7 @@
  * Project 4 - OOP Game App
  * Phrase.js */
 
-// General DOM variable
+// General DOM elements
 const ul = document.querySelector('#phrase ul');
 
 // Blueprint for creating phrase objects
@@ -49,7 +49,7 @@ class Phrase {
         const matched = checkLetter();
         const char = document.querySelectorAll('.key').textContent;
         if(matched) {
-            // returns node list, so iterate through it
+            // returns node list, so iterate through it and change class hide/show
             document.querySelectorAll(`.${char}`).forEach( li => {
                 li.classList.remove('hide');
                 li.classList.add('show');
@@ -62,8 +62,8 @@ class Phrase {
 
 
 // test area
-const p1 = new Phrase('test one');
-p1.addPhraseToDisplay();
+// const p1 = new Phrase('test one');
+// p1.addPhraseToDisplay();
 
 // const char = '0';
 // const regex = /[a-z]/.test(char);
