@@ -22,27 +22,81 @@ class Game {
 
     // METHODS ------------
 
+    // hide overlay, set active phrase to random phrase, display the phrase
     startGame() {
-        // do something
+        document.querySelector('#overlay').style.display = 'none';
+        this.activePhrase = this.getRandomPhrase();
+        addPhraseToDisplay(this.activePhrase);
     }
 
     getRandomPhrase() {
-        // do something
+        const random = Math.floor(Math.random() * 5);
+        return phrases[random];
     }
 
+    // checks if button clicked matches aletter in the phrase
+    // directs the game based on if correct or incorrect guess
+    // disable the selected letter
+    // if phrase DOES NOT include the guessed letter, add .wrong to selected .key button and call removeLife()
+    // if phrase DOES include the guessed letter, add .chosen to selected .key button, call showMatchedLetter(), call checkForWin()
+        // if player won, call gameOver()
     handleInteraction() {
-        // do something
+        const keyboard = document.querySelector('#qwerty');
+
+        keyboard.addEventListener('click', (e) => {
+            const hitKey = e.target;
+            hitKey.disabled = true;
+            const phrase = this.activePhrase.toLowerCase().split('');
+            const matched = phrase.filter( char => char === hitKey.textContent );
+
+            // if there was no match
+            if(matched.length === 0){
+                hitKey.classList.add('wrong');
+                this.removeLife();
+            // else there was a match
+            } else {
+                hitKey.classList.add('chosen');
+                showMatchedLetter(); // step 2 saying to call this ON the phrase??
+                if( this.checkForWin() ){ //checkforwin should return bool
+                    this.gameOver();
+                }
+            }
+        });
     }
 
     removeLife() {
-        // do something
+        const liveHearts = document.querySelectorAll('img[src="images/liveHeart.png"]');
+        const lostHeart = "images/lostHeart.png";
+
+        for(let i=0; i<liveHearts.length; i++){
+            if (liveHearts[i].src === "images/liveHeart.png"){
+                liveHearts[i].src = lostHeart;
+                break;
+            }
+        }
+
+        this.missed += 1;
+
+        if (this.missed === 5) {
+            this.gameOver();
+        }
     }
 
     checkForWin() {
-        // do something
+        return phrase.length === show.length; //class=show .length
+        // document.querySelectorAll('.hide') === 0 --> can't do this because space class will always be hide 
     }
 
     gameOver() {
-        // do something
+        const overlay = document.querySelector('#overlay')
+        overlay.style.display = 'block';
+        if(this.checkForWin()){
+            overlay.querySelector('#game-over-message') = `Youuuu win!`;
+            overlay.querySelector('#game-over-message').classList.add('win');
+        } else {
+            overlay.querySelector('#game-over-message') = `Maybe next time cowboy...`;
+            overlay.querySelector('#game-over-message').classList.add('lose');
+        }
     }
+
 }
