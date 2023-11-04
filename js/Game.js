@@ -83,7 +83,9 @@ class Game {
     }
 
     checkForWin() {
-        return phrase.length === show.length; //class=show .length
+        return document.querySelectorAll('letter').length +
+            document.querySelectorAll('space').length === 
+            this.activePhrase.length; //class=show .length
         // document.querySelectorAll('.hide') === 0 --> can't do this because space class will always be hide 
     }
 
@@ -92,10 +94,10 @@ class Game {
         overlay.style.display = 'block';
         if(this.checkForWin()){
             overlay.querySelector('#game-over-message') = `Youuuu win!`;
-            overlay.querySelector('#game-over-message').classList.add('win');
+            document.querySelector('#start').className = 'win';
         } else {
             overlay.querySelector('#game-over-message') = `Maybe next time cowboy...`;
-            overlay.querySelector('#game-over-message').classList.add('lose');
+            document.querySelector('#start').className = 'lose';
         }
     }
 
