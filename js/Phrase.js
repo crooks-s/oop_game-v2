@@ -40,15 +40,20 @@ class Phrase {
     // check if (.letter textContent) matches player choice (.key textContent)
     // returns bool
     checkLetter() {
-        return document.querySelectorAll('.letter').textContent ===
-                document.querySelectorAll('.key').textContent
-    }
+        let matched = false;
+        // FIX THIS !!!
+        return document.querySelectorAll('.letter').forEach( letter => {
+            if (letter === document.querySelectorAll('.key')){
+                matched = true;
+            };
+        })
+}
 
     // show letter(s) that match player selection
     showMatchedLetter() {
-        const matched = checkLetter();
+        const isMatch = this.checkLetter();
         const char = document.querySelectorAll('.key').textContent;
-        if(matched) {
+        if(isMatch) {
             // returns node list, so iterate through it and change class hide/show
             document.querySelectorAll(`.${char}`).forEach( li => {
                 li.classList.remove('hide');
@@ -62,9 +67,10 @@ class Phrase {
 
 
 // test area
-// const p1 = new Phrase('test one');
-// p1.addPhraseToDisplay();
+const p1 = new Phrase('Test o');
+const p2 = new Phrase('Test oo');
+const p3 = new Phrase('Test ooo');
+const p4 = new Phrase('Test oooo');
+const p5 = new Phrase('Test ooooo');
 
-// const char = '0';
-// const regex = /[a-z]/.test(char);
-// console.log(regex);
+const phrases = [p1, p2, p3, p4, p5];

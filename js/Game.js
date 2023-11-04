@@ -26,7 +26,7 @@ class Game {
     startGame() {
         document.querySelector('#overlay').style.display = 'none';
         this.activePhrase = this.getRandomPhrase();
-        addPhraseToDisplay(this.activePhrase);
+        this.activePhrase.addPhraseToDisplay();
     }
 
     getRandomPhrase() {
@@ -46,8 +46,8 @@ class Game {
         keyboard.addEventListener('click', (e) => {
             const hitKey = e.target;
             hitKey.disabled = true;
-            const phrase = this.activePhrase.toLowerCase().split('');
-            const matched = phrase.filter( char => char === hitKey.textContent );
+            const phraseArr = this.activePhrase.phrase.toLowerCase().split('');
+            const matched = phraseArr.filter( char => char === hitKey.textContent );
 
             // if there was no match
             if(matched.length === 0){
@@ -56,7 +56,7 @@ class Game {
             // else there was a match
             } else {
                 hitKey.classList.add('chosen');
-                showMatchedLetter(); // step 2 saying to call this ON the phrase??
+                this.activePhrase.showMatchedLetter(); // step 2 saying to call this ON the phrase??
                 if( this.checkForWin() ){ //checkforwin should return bool
                     this.gameOver();
                 }
@@ -93,11 +93,11 @@ class Game {
         const overlay = document.querySelector('#overlay')
         overlay.style.display = 'block';
         if(this.checkForWin()){
-            overlay.querySelector('#game-over-message') = `Youuuu win!`;
-            document.querySelector('#start').className = 'win';
+            overlay.querySelector('#game-over-message').textContent = `Youuuu win!`;
+            overlay.querySelector('h1').className = 'win';
         } else {
-            overlay.querySelector('#game-over-message') = `Maybe next time cowboy...`;
-            document.querySelector('#start').className = 'lose';
+            overlay.querySelector('#game-over-message').textContent = `Maybe next time cowboy...`;
+            overlay.querySelector('h1').className = 'lose';
         }
     }
 
