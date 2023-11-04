@@ -28,21 +28,33 @@ class Phrase {
         phraseArr.forEach( char => {
             const regex = /[a-z]/.test(char);
             if(regex){
-                return html += `<li class="letter">${char}</li>`;
+                return html += `<li class="hide letter ${char}">${char}</li>`;
             } else {
-                return html += `<li class="space">${char}</li>`;
+                return html += `<li class="hide space ${char}">${char}</li>`;
             }
         });
 
         ul.insertAdjacentHTML('beforeend', html);
     }
 
+    // check if (.letter textContent) matches player choice (.key textContent)
+    // returns bool
     checkLetter() {
-        // do something
+        return document.querySelectorAll('.letter').textContent ===
+                document.querySelectorAll('.key').textContent
     }
 
+    // show letter(s) that match player selection
     showMatchedLetter() {
-        // do something
+        const matched = checkLetter();
+        const char = document.querySelectorAll('.key').textContent;
+        if(matched) {
+            // returns node list, so iterate through it
+            document.querySelectorAll(`.${char}`).forEach( li => {
+                li.classList.remove('hide');
+                li.classList.add('show');
+            });
+        }
     }
 
 }
