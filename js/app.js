@@ -10,17 +10,13 @@ const startGame = document.querySelector('#btn__reset');
 const keyrow = document.querySelector('#qwerty');
 let game;
 
-startGame.addEventListener('click', (e) => {
-    console.log('startGame click ' + e.target);
+startGame.addEventListener('click', () => {
     game = new Game(0, phrases, null);
     game.startGame();
 });
 
 keyrow.addEventListener('click', (e) => {
-    console.log('keyrow click ' + e.target);
-
     if(e.target.tagName === 'BUTTON'){
-        console.log(e.target);
-        game.handleInteraction();
+        game.handleInteraction(e);
     }
 })

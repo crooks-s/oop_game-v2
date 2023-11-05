@@ -40,36 +40,53 @@ class Game {
     // if phrase DOES NOT include the guessed letter, add .wrong to selected .key button and call removeLife()
     // if phrase DOES include the guessed letter, add .chosen to selected .key button, call showMatchedLetter(), call checkForWin()
         // if player won, call gameOver()
-    handleInteraction() {
+    handleInteraction(e) {
         const keyboard = document.querySelector('#qwerty');
 
-        keyboard.addEventListener('click', (e) => {
-            const hitKey = e.target;
+        const hitKey = e.target;
+        if(hitKey.tagName === 'BUTTON'){
             hitKey.disabled = true;
+
+            // remove selected from previous key
+            const selectedKeyElement = document.querySelector('.selectedKey');
+            if (selectedKeyElement) {
+            selectedKeyElement.classList.remove('selectedKey');
+            }
+
+            // add selected to new key
+            hitKey.classList.add('selectedKey');
             const phraseArr = this.activePhrase.phrase.toLowerCase().split('');
             const matched = phraseArr.filter( char => char === hitKey.textContent );
 
             // if there was no match
             if(matched.length === 0){
                 hitKey.classList.add('wrong');
+                // console.log(hitKey.classList);
+                // console.log('about to call removeLife()');
+
                 this.removeLife();
             // else there was a match
             } else {
                 hitKey.classList.add('chosen');
-                this.activePhrase.showMatchedLetter(); // step 2 saying to call this ON the phrase??
+                // console.log(hitKey.classList);
+                this.activePhrase.showMatchedLetter();
                 if( this.checkForWin() ){ //checkforwin should return bool
                     this.gameOver();
                 }
             }
-        });
+        }
+  
     }
 
     removeLife() {
+        // console.log('removeLife() called');
         const liveHearts = document.querySelectorAll('img[src="images/liveHeart.png"]');
+        // console.log(liveHearts.length);
+        // console.log(liveHearts[0].getAttribute('src'));
         const lostHeart = "images/lostHeart.png";
 
         for(let i=0; i<liveHearts.length; i++){
-            if (liveHearts[i].src === "images/liveHeart.png"){
+            if (liveHearts[i].src === "file:///Users/seancrooks/Coding/Portfolio-Projects/Team%20Treehouse/oop_game-v2/images/liveHeart.png"){
                 liveHearts[i].src = lostHeart;
                 break;
             }
@@ -83,10 +100,18 @@ class Game {
     }
 
     checkForWin() {
-        return document.querySelectorAll('letter').length +
-            document.querySelectorAll('space').length === 
-            this.activePhrase.length; //class=show .length
-        // document.querySelectorAll('.hide') === 0 --> can't do this because space class will always be hide 
+        const lis = document.querySelectorAll('#phrase li');
+        let won = true;
+        
+        for(let i = 0; i<lis.length; i++){
+            const li = lis[i].classList;
+            // if any letter is still hidden, then won is false
+            if( li.contains('letter') && li.contains('hide') ){
+                won = false;
+            }
+        }
+
+        return won; 
     }
 
     gameOver() {
