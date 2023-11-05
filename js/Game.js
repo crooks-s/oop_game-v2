@@ -2,9 +2,6 @@
  * Project 4 - OOP Game App
  * Game.js */
 
-// General DOM elements
-
-
 // reponsible for managing game's stage, logic, and interactions
 class Game {
     constructor(){
@@ -49,7 +46,7 @@ class Game {
     // get a random phrase from phrases array
     getRandomPhrase() {
         const random = Math.floor(Math.random() * this.phrases.length);
-        return phrases[random];
+        return this.phrases[random];
     }
 
     // Handles most game functionality when 'click' event occurs
