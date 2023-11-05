@@ -48,7 +48,7 @@ class Game {
 
     // get a random phrase from phrases array
     getRandomPhrase() {
-        const random = Math.floor(Math.random() * 5);
+        const random = Math.floor(Math.random() * this.phrases.length);
         return phrases[random];
     }
 

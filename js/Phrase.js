@@ -2,8 +2,6 @@
  * Project 4 - OOP Game App
  * Phrase.js */
 
-// General DOM elements
-const ul = document.querySelector('#phrase ul');
 
 // Blueprint for creating phrase objects
 class Phrase {
@@ -27,6 +25,7 @@ class Phrase {
             }
         });
 
+        const ul = document.querySelector('#phrase ul');
         ul.insertAdjacentHTML('beforeend', html);
     }
 
@@ -54,10 +53,10 @@ class Phrase {
 }
 
 // Initialize 5 phrase objects to be used in game
-const p1 = new Phrase('Test Crank');
-const p2 = new Phrase('Test That');
-const p3 = new Phrase('Test YOUUU');
-const p4 = new Phrase('Test Soulja');
-const p5 = new Phrase('Test Boy');
+const p1 = new Phrase('There is no place like home');
+const p2 = new Phrase('Why so serious');
+const p3 = new Phrase('May the force be with you');
+const p4 = new Phrase('I am the captain now');
+const p5 = new Phrase('Look at little goblin junior');
 
 const phrases = [p1, p2, p3, p4, p5];
