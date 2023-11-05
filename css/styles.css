@@ -83,6 +83,11 @@ button {
   margin-top: 15px;
 }
 
+#scoreboard ol li img {
+  height: 50px;
+  width: 50px;
+}
+
 /* Title */
 
 .header {
