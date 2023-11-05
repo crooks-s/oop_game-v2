@@ -7,13 +7,10 @@ const ul = document.querySelector('#phrase ul');
 
 // Blueprint for creating phrase objects
 class Phrase {
-    // Create a phrase object----------------
     // @param {string} phrase - actual phrase to be represented
     constructor(phrase) {
         this.phrase = phrase.toLowerCase();
     }
-
-    // METHODS --------------
 
     // add letter placeholders to the page by making <li> elements
     addPhraseToDisplay() {
@@ -56,9 +53,7 @@ class Phrase {
 
 }
 
-
-
-// test area
+// Initialize 5 phrase objects to be used in game
 const p1 = new Phrase('Test Crank');
 const p2 = new Phrase('Test That');
 const p3 = new Phrase('Test YOUUU');

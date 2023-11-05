@@ -7,27 +7,18 @@
 
 // reponsible for managing game's stage, logic, and interactions
 class Game {
-
-    /***
-     * @param {integer} missed: tracks num of missed guesses, inital value 0
-     * @param {array} phrases: array of five phrase objects to use within game. phrases will contain ONLY letters and spaces
-     * @param {string} activePhrase: current phrase object in play, initial value NULL. in startGame(), this prop will be set to the phrase obj returned from a call to the getRandomPhrase()
-     */
-
-    constructor(missed = 0, phrases, activePhrase = null){
-        this.missed = missed;
+    constructor(){
+        this.missed = 0;
         this.phrases = phrases;
-        this.activePhrase = activePhrase;
+        this.activePhrase = null;
     }
-
-    // METHODS ------------
 
     // called when Start Game button clicked
     startGame() {
         // hide overlay
         document.querySelector('#overlay').style.display = 'none';
 
-        // clear the display for the new phrase (if player resetting a game) to be added
+        // prevents duplicated phrases from showing by emptying <ul>
         const ul = document.querySelector('ul');
         while (ul.firstChild) {
             ul.removeChild(ul.firstChild);
@@ -86,7 +77,7 @@ class Game {
                 hitKey.classList.add('wrong');
                 this.removeLife();
 
-            // else there was a match
+            // else there was a match, show letter, and check if won
             } else {
                 hitKey.classList.add('chosen');
                 this.activePhrase.showMatchedLetter();
