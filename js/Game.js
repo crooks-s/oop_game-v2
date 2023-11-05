@@ -127,10 +127,10 @@ class Game {
         const overlay = document.querySelector('#overlay')
         overlay.style.display = 'block';
         if(this.checkForWin()){
-            overlay.querySelector('#game-over-message').textContent = `Youuuu win!`;
+            overlay.querySelector('#game-over-message').textContent = `Got 'em! See you, space cowboy...`;
             overlay.querySelector('h1').className = 'win';
         } else {
-            overlay.querySelector('#game-over-message').textContent = `Maybe next time cowboy...`;
+            overlay.querySelector('#game-over-message').textContent = `Maybe next time, space cowboy...`;
             overlay.querySelector('h1').className = 'lose';
         }
     }
