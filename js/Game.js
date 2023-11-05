@@ -24,9 +24,36 @@ class Game {
 
     // hide overlay, set active phrase to random phrase, display the phrase
     startGame() {
+        // hide overlay
         document.querySelector('#overlay').style.display = 'none';
+
+        // clear the display for the new phrase to be added
+        const ul = document.querySelector('ul');
+        while (ul.firstChild) {
+            ul.removeChild(ul.firstChild);
+        }
+
+        // get and display a phrase
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
+
+        // refresh and enable all keys
+        const keys = document.querySelectorAll('#qwerty .key');
+        for(let i = 0; i < keys.length; i++) {
+            keys[i].className = "key";
+            keys[i].disabled = false;
+        }
+
+        // restore hearts (reversed removeLife())
+        const lostHearts = document.querySelectorAll('img[src="images/lostHeart.png"]');
+        const liveHeart = "images/liveHeart.png";
+
+        for(let i=0; i<lostHearts.length; i++){
+            if (lostHearts[i].src === "file:///Users/seancrooks/Coding/Portfolio-Projects/Team%20Treehouse/oop_game-v2/images/lostHeart.png"){
+                lostHearts[i].src = liveHeart;
+            }
+        }
+
     }
 
     getRandomPhrase() {
@@ -41,9 +68,8 @@ class Game {
     // if phrase DOES include the guessed letter, add .chosen to selected .key button, call showMatchedLetter(), call checkForWin()
         // if player won, call gameOver()
     handleInteraction(e) {
-        const keyboard = document.querySelector('#qwerty');
-
         const hitKey = e.target;
+
         if(hitKey.tagName === 'BUTTON'){
             hitKey.disabled = true;
 
@@ -61,14 +87,11 @@ class Game {
             // if there was no match
             if(matched.length === 0){
                 hitKey.classList.add('wrong');
-                // console.log(hitKey.classList);
-                // console.log('about to call removeLife()');
 
                 this.removeLife();
             // else there was a match
             } else {
                 hitKey.classList.add('chosen');
-                // console.log(hitKey.classList);
                 this.activePhrase.showMatchedLetter();
                 if( this.checkForWin() ){ //checkforwin should return bool
                     this.gameOver();
@@ -79,10 +102,7 @@ class Game {
     }
 
     removeLife() {
-        // console.log('removeLife() called');
         const liveHearts = document.querySelectorAll('img[src="images/liveHeart.png"]');
-        // console.log(liveHearts.length);
-        // console.log(liveHearts[0].getAttribute('src'));
         const lostHeart = "images/lostHeart.png";
 
         for(let i=0; i<liveHearts.length; i++){

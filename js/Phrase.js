@@ -37,6 +37,7 @@ class Phrase {
         ul.insertAdjacentHTML('beforeend', html);
     }
 
+    // used to check if a hidden letter matches player's choice
     checkLetter(letter) {
         const phraseArr = this.phrase.split('');
         let matching = phraseArr.filter( char => char === letter);
