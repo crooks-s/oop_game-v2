@@ -9,9 +9,9 @@
 class Game {
 
     /***
-     * @param {} missed: tracks num of missed guesses, inital value 0
-     * @param {} phrases: array of five phrase objects to use within game. phrases will contain ONLY letters and spaces
-     * @param {} activePhrase: current phrase object in play, initial value NULL. in startGame(), this prop will be set to the phrase obj returned from a call to the getRandomPhrase()
+     * @param {integer} missed: tracks num of missed guesses, inital value 0
+     * @param {array} phrases: array of five phrase objects to use within game. phrases will contain ONLY letters and spaces
+     * @param {string} activePhrase: current phrase object in play, initial value NULL. in startGame(), this prop will be set to the phrase obj returned from a call to the getRandomPhrase()
      */
 
     constructor(missed = 0, phrases, activePhrase = null){
@@ -22,12 +22,12 @@ class Game {
 
     // METHODS ------------
 
-    // hide overlay, set active phrase to random phrase, display the phrase
+    // called when Start Game button clicked
     startGame() {
         // hide overlay
         document.querySelector('#overlay').style.display = 'none';
 
-        // clear the display for the new phrase to be added
+        // clear the display for the new phrase (if player resetting a game) to be added
         const ul = document.querySelector('ul');
         while (ul.firstChild) {
             ul.removeChild(ul.firstChild);
@@ -47,7 +47,6 @@ class Game {
         // restore hearts (reversed removeLife())
         const lostHearts = document.querySelectorAll('img[src="images/lostHeart.png"]');
         const liveHeart = "images/liveHeart.png";
-
         for(let i=0; i<lostHearts.length; i++){
             if (lostHearts[i].src === "file:///Users/seancrooks/Coding/Portfolio-Projects/Team%20Treehouse/oop_game-v2/images/lostHeart.png"){
                 lostHearts[i].src = liveHeart;
@@ -56,44 +55,42 @@ class Game {
 
     }
 
+    // get a random phrase from phrases array
     getRandomPhrase() {
         const random = Math.floor(Math.random() * 5);
         return phrases[random];
     }
 
-    // checks if button clicked matches aletter in the phrase
-    // directs the game based on if correct or incorrect guess
-    // disable the selected letter
-    // if phrase DOES NOT include the guessed letter, add .wrong to selected .key button and call removeLife()
-    // if phrase DOES include the guessed letter, add .chosen to selected .key button, call showMatchedLetter(), call checkForWin()
-        // if player won, call gameOver()
+    // Handles most game functionality when 'click' event occurs
     handleInteraction(e) {
         const hitKey = e.target;
 
+        // does something only if a BUTTON is clicked
         if(hitKey.tagName === 'BUTTON'){
+            // disable the selected key to prevent re-selection
             hitKey.disabled = true;
 
-            // remove selected from previous key
+            // remove .selectedKey from previous key selected
             const selectedKeyElement = document.querySelector('.selectedKey');
             if (selectedKeyElement) {
             selectedKeyElement.classList.remove('selectedKey');
             }
 
-            // add selected to new key
+            // add .selectedKey to new key selected
             hitKey.classList.add('selectedKey');
             const phraseArr = this.activePhrase.phrase.toLowerCase().split('');
             const matched = phraseArr.filter( char => char === hitKey.textContent );
 
-            // if there was no match
+            // if there was no match, .wrong added and heart removed
             if(matched.length === 0){
                 hitKey.classList.add('wrong');
-
                 this.removeLife();
+
             // else there was a match
             } else {
                 hitKey.classList.add('chosen');
                 this.activePhrase.showMatchedLetter();
-                if( this.checkForWin() ){ //checkforwin should return bool
+                if( this.checkForWin() ){
                     this.gameOver();
                 }
             }
@@ -101,6 +98,8 @@ class Game {
   
     }
 
+    // replaces life heart with lost heart, and increments missed property
+    // also calls gameOver if missed 5 times
     removeLife() {
         const liveHearts = document.querySelectorAll('img[src="images/liveHeart.png"]');
         const lostHeart = "images/lostHeart.png";
@@ -119,6 +118,7 @@ class Game {
         }
     }
 
+    // if no more hidden letters, then player won
     checkForWin() {
         const lis = document.querySelectorAll('#phrase li');
         let won = true;
@@ -134,6 +134,7 @@ class Game {
         return won; 
     }
 
+    // handles if player wins or loses, resets display to default settings
     gameOver() {
         const overlay = document.querySelector('#overlay')
         overlay.style.display = 'block';

@@ -7,24 +7,20 @@ const ul = document.querySelector('#phrase ul');
 
 // Blueprint for creating phrase objects
 class Phrase {
-    // Create a phrase----------------
-    // @param {string} phrase: actual phrase to be represented
+    // Create a phrase object----------------
+    // @param {string} phrase - actual phrase to be represented
     constructor(phrase) {
         this.phrase = phrase.toLowerCase();
     }
 
-    /*** METHODS --------------
-     * Each letter is presented by an empty box -- one <li> per letter
-     * Player guesses correct letter: <li> .hide to .show
-     * 
-     */
+    // METHODS --------------
 
-    // add letter placeholders to the page
-    // render HTML to do this -- see example_phrase_html.txt
-    // ul insert beforeend the li of phraseArr[i]. or use forEach
+    // add letter placeholders to the page by making <li> elements
     addPhraseToDisplay() {
         const phraseArr = this.phrase.split('');
         let html = '';
+
+        // create a new <li> for each char in phrase
         phraseArr.forEach( char => {
             const regex = /[a-z]/.test(char);
             if(regex){
@@ -37,7 +33,7 @@ class Phrase {
         ul.insertAdjacentHTML('beforeend', html);
     }
 
-    // used to check if a hidden letter matches player's choice
+    // checks if a hidden letter matches player's choice
     checkLetter(letter) {
         const phraseArr = this.phrase.split('');
         let matching = phraseArr.filter( char => char === letter);
@@ -49,8 +45,8 @@ class Phrase {
         const charKey = document.querySelector('.selectedKey').textContent;
         const isMatch = this.checkLetter(charKey);
 
+        // if match found, show all matched char values
         if(isMatch) {
-            // returns node list, so iterate through it and change class hide/show
             document.querySelectorAll(`.${charKey}`).forEach( li => {
                 li.classList.remove('hide');
                 li.classList.add('show');

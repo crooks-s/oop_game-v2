@@ -2,19 +2,17 @@
  * Project 4 - OOP Game App
  * app.js */
 
-// event listeners, enabling user interaction, instantiate Game class
-
-// add click event listener to "Start Game" butt on which creates a new Game object and starts the game by calling startGame()
-
 const startGame = document.querySelector('#btn__reset');
 const keyrow = document.querySelector('#qwerty');
 let game;
 
+// New Game object created and game starts
 startGame.addEventListener('click', () => {
     game = new Game(0, phrases, null);
     game.startGame();
 });
 
+// Handles click events on webpage display keyboard
 keyrow.addEventListener('click', (e) => {
     if(e.target.tagName === 'BUTTON'){
         game.handleInteraction(e);
