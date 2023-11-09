@@ -48,6 +48,10 @@ class Game {
             }
         }
 
+        // reset ingame message
+        document.querySelector('#container').style.backgroundColor = 'lightblue';
+        document.querySelector('#ingame-message').textContent = 'Guess the phrase! Good luck!';
+
     }
 
     // get a random phrase from phrases array
@@ -85,6 +89,13 @@ class Game {
             } else {
                 hitKey.classList.add('chosen');
                 this.activePhrase.showMatchedLetter();
+
+
+                // add message to give player when guessed correct
+                document.querySelector('#container').style.backgroundColor = '#78CF82';
+                document.querySelector('#ingame-message').textContent = 'You got it right!';
+
+
                 if( this.checkForWin() ){
                     this.gameOver();
                 }
@@ -105,6 +116,10 @@ class Game {
                 break;
             }
         }
+
+        // add message to give player when heart lost
+        document.querySelector('#container').style.backgroundColor = '#f5785f';
+        document.querySelector('#ingame-message').textContent = 'Sorry, try agin...';
 
         this.missed += 1;
         if (this.missed === 5) {

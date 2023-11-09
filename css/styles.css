@@ -88,6 +88,27 @@ button {
   width: 40px;
 }
 
+#container {
+  background-color: lightblue;
+  margin: 40px auto 0 auto;
+  padding: 15px 160px;
+}
+
+#ingame-message {
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+  color: white;
+}
+
+.incorrect {
+  background-color: #f5785f;
+}
+
+.correct {
+  background-color: #78CF82;
+}
+
 /* Title */
 
 .header {
