@@ -119,7 +119,7 @@ class Game {
 
         // add message to give player when heart lost
         document.querySelector('#container').style.backgroundColor = '#f5785f';
-        document.querySelector('#ingame-message').textContent = 'Sorry, try agin...';
+        document.querySelector('#ingame-message').textContent = 'Sorry, try again...';
 
         this.missed += 1;
         if (this.missed === 5) {
