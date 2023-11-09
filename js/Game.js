@@ -2,6 +2,8 @@
  * Project 4 - OOP Game App
  * Game.js */
 
+let currentPhrase;
+
 // reponsible for managing game's stage, logic, and interactions
 class Game {
     constructor(){
@@ -22,8 +24,13 @@ class Game {
         }
 
         // populate and display an active phrase
-        this.activePhrase = this.getRandomPhrase();
+        // do...while ensure previous quote is not displayed again
+        do {
+            this.activePhrase = this.getRandomPhrase();
+        } while (this.activePhrase.phrase === currentPhrase);
+        
         this.activePhrase.addPhraseToDisplay();
+        currentPhrase = this.activePhrase.phrase;
 
         // refresh and enable all keys
         const keys = document.querySelectorAll('#qwerty .key');
