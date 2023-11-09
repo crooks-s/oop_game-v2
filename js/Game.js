@@ -36,7 +36,7 @@ class Game {
         const lostHearts = document.querySelectorAll('img[src="images/lostHeart.png"]');
         const liveHeart = "images/liveHeart.png";
         for(let i=0; i<lostHearts.length; i++){
-            if (lostHearts[i].src === "file:///Users/seancrooks/Coding/Portfolio-Projects/Team%20Treehouse/oop_game-v2/images/lostHeart.png"){
+            if (lostHearts[i].src === "file:///Users/seancrooks/Coding/Portfolio-Projects/Team-Treehouse/oop_game-v2/images/lostHeart.png"){
                 lostHearts[i].src = liveHeart;
             }
         }
@@ -93,7 +93,7 @@ class Game {
         const lostHeart = "images/lostHeart.png";
 
         for(let i=0; i<liveHearts.length; i++){
-            if (liveHearts[i].src === "file:///Users/seancrooks/Coding/Portfolio-Projects/Team%20Treehouse/oop_game-v2/images/liveHeart.png"){
+            if (liveHearts[i].src === "file:///Users/seancrooks/Coding/Portfolio-Projects/Team-Treehouse/oop_game-v2/images/liveHeart.png"){
                 liveHearts[i].src = lostHeart;
                 break;
             }
