@@ -14,7 +14,7 @@ startGame.addEventListener('click', () => {
 
 // Handles click events on webpage's display-keyboard
 keyrow.addEventListener('click', (e) => {
-    if(e.target.tagName === 'BUTTON'){
+    if(e.target.tagName === 'BUTTON') {
         game.handleInteraction(e);
     }
-})
+});
