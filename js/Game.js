@@ -40,9 +40,9 @@ class Game {
 
         // Restore hearts (reversed removeLife)
         const lostHearts = document.querySelectorAll('img[src="images/lostHeart.png"]');
-        const liveHeart = "file:///Users/seancrooks/coding/portfolio/treehouse/oop_game-v2/images/liveHeart.png";
-        for(const heart of lostHearts){
-            if (heart.src === "file:///Users/seancrooks/coding/portfolio/treehouse/oop_game-v2/images/lostHeart.png"){
+        const liveHeart = "images/liveHeart.png";
+        for (const heart of lostHearts){
+            if ( heart.src.endsWith("images/lostHeart.png") ){
                 heart.src = liveHeart;
             }
         };
@@ -130,11 +130,11 @@ class Game {
     // Replaces life heart with lost heart, and increments missed property
     // Calls gameOver if missed 5 times
     removeLife() {
-        const liveHearts = document.querySelectorAll('img[src="images/liveHeart.png"]');
-        const lostHeart = "file:///Users/seancrooks/coding/portfolio/treehouse/oop_game-v2/images/lostHeart.png";
 
+        const liveHearts = document.querySelectorAll('img[src="images/liveHeart.png"]');
+        const lostHeart = "images/lostHeart.png";
         for(const heart of liveHearts){
-            if (heart.src === "file:///Users/seancrooks/coding/portfolio/treehouse/oop_game-v2/images/liveHeart.png"){
+            if ( heart.src.endsWith("images/liveHeart.png") ){
                 heart.src = lostHeart;
                 break;
             }
