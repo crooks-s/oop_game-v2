@@ -42,7 +42,7 @@ class Game {
         const lostHearts = document.querySelectorAll('img[src="images/lostHeart.png"]');
         const liveHeart = "images/liveHeart.png";
         for(const heart of lostHearts){
-            if (heart.src === "file:///Users/seancrooks/Coding/Portfolio-Projects/Team-Treehouse/oop_game-v2/images/lostHeart.png"){
+            if (heart.src === "images/lostHeart.png"){
                 heart.src = liveHeart;
             }
         };
@@ -134,7 +134,7 @@ class Game {
         const lostHeart = "images/lostHeart.png";
 
         for(let i=0; i<liveHearts.length; i++){
-            if (liveHearts[i].src === "file:///Users/seancrooks/Coding/Portfolio-Projects/Team-Treehouse/oop_game-v2/images/liveHeart.png"){
+            if (liveHearts[i].src === "images/liveHeart.png"){
                 liveHearts[i].src = lostHeart;
                 break;
             }
