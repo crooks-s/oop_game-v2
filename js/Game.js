@@ -53,15 +53,19 @@ class Game {
         document.querySelector('#ingame-message').textContent = 'Guess the phrase! Good luck!';
 
         // allow player to use physical keyboard in game
+        // sets pressedKeys back to empty object per game
+        const pressedKeys = {};
         document.addEventListener('keyup', (e) => {
             const regex = /[a-z]/.test(e.key);
-            if (regex) {
-                // console.log(e.key + '  good');
+            if (regex && !pressedKeys[e.key]) {
+                console.log(pressedKeys);
+                pressedKeys[e.key] = true;
                 this.handleInteraction(e);
             } else {
-                // console.log(e.key + '  bad');
+                console.log(pressedKeys);
+
                 document.querySelector('#container').style.backgroundColor = '#f5785f';
-                document.querySelector('#ingame-message').textContent = 'Please only use letter keys';
+                document.querySelector('#ingame-message').textContent = 'Please choose a valid letter';
             }
         });
 
@@ -73,15 +77,23 @@ class Game {
         return this.phrases[random];
     }
 
-    // Handles most game functionality when 'click' event occurs
+    // Handles most game functionality when an event occurs
     handleInteraction(e) {
         let hitKey;
 
+        // Handles when players clicks a key on displayed keyboard
         if(e.type === 'click') {
             hitKey = e.target;
-            
+
+        // Handles when players presses a key on physical keyboard
         } else if (e.type === 'keyup') {
-            //
+            const keys = document.querySelectorAll('.key');
+            for(const key of keys) {
+                if (key.textContent === e.key) {
+                    hitKey = key;
+                }
+            }
+            
         }
   
         // disable selected/clicked key to prevent re-selection
@@ -164,6 +176,7 @@ class Game {
     gameOver() {
         const overlay = document.querySelector('#overlay')
         overlay.style.display = 'block';
+
         if(this.checkForWin()){
             overlay.querySelector('#game-over-message').textContent = `Got 'em! See you, space cowboy...`;
             overlay.querySelector('h1').className = 'win';
