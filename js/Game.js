@@ -52,6 +52,19 @@ class Game {
         document.querySelector('#container').style.backgroundColor = 'lightblue';
         document.querySelector('#ingame-message').textContent = 'Guess the phrase! Good luck!';
 
+        // allow player to use physical keyboard in game
+        document.addEventListener('keyup', (e) => {
+            const regex = /[a-z]/.test(e.key);
+            if (regex) {
+                // console.log(e.key + '  good');
+                this.handleInteraction(e);
+            } else {
+                // console.log(e.key + '  bad');
+                document.querySelector('#container').style.backgroundColor = '#f5785f';
+                document.querySelector('#ingame-message').textContent = 'Please only use letter keys';
+            }
+        });
+
     }
 
     // get a random phrase from phrases array
@@ -62,43 +75,47 @@ class Game {
 
     // Handles most game functionality when 'click' event occurs
     handleInteraction(e) {
-        const hitKey = e.target;
+        let hitKey;
 
-        // does something only if a BUTTON is clicked
-        if(hitKey.tagName === 'BUTTON'){
-            // disable selected/clicked key to prevent re-selection
-            hitKey.disabled = true;
+        if(e.type === 'click') {
+            hitKey = e.target;
+            
+        } else if (e.type === 'keyup') {
+            //
+        }
+  
+        // disable selected/clicked key to prevent re-selection
+        hitKey.disabled = true;
 
-            // remove .selectedKey from previous key clicked
-            const selectedKeyElement = document.querySelector('.selectedKey');
-            if (selectedKeyElement) {
-            selectedKeyElement.classList.remove('selectedKey');
-            }
+        // remove .selectedKey from previous key clicked
+        const selectedKeyElement = document.querySelector('.selectedKey');
+        if (selectedKeyElement) {
+        selectedKeyElement.classList.remove('selectedKey');
+        }
 
-            // add .selectedKey to new key clicked
-            hitKey.classList.add('selectedKey');
-            const phraseArr = this.activePhrase.phrase.toLowerCase().split('');
-            const matched = phraseArr.filter( char => char === hitKey.textContent );
+        // add .selectedKey to new key clicked
+        hitKey.classList.add('selectedKey');
+        const phraseArr = this.activePhrase.phrase.toLowerCase().split('');
+        const matched = phraseArr.filter( char => char === hitKey.textContent );
 
-            // if there was no match, .wrong added and heart removed
-            if(matched.length === 0){
-                hitKey.classList.add('wrong');
-                this.removeLife();
+        // if there was no match, .wrong added and heart removed
+        if(matched.length === 0){
+            hitKey.classList.add('wrong');
+            this.removeLife();
 
-            // else there was a match, show letter, and check if won
-            } else {
-                hitKey.classList.add('chosen');
-                this.activePhrase.showMatchedLetter();
-
-
-                // add message to give player when guessed correct
-                document.querySelector('#container').style.backgroundColor = '#78CF82';
-                document.querySelector('#ingame-message').textContent = 'You got it right!';
+        // else there was a match, show letter, and check if won
+        } else {
+            hitKey.classList.add('chosen');
+            this.activePhrase.showMatchedLetter();
 
 
-                if( this.checkForWin() ){
-                    this.gameOver();
-                }
+            // add message to give player when guessed correct
+            document.querySelector('#container').style.backgroundColor = '#78CF82';
+            document.querySelector('#ingame-message').textContent = 'You got it right!';
+
+
+            if( this.checkForWin() ){
+                this.gameOver();
             }
         }
   
