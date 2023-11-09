@@ -3,19 +3,19 @@
  * Phrase.js */
 
 
-// Blueprint for creating phrase objects and methods
 class Phrase {
+
     // @param {string} phrase - actual phrase to be represented
     constructor(phrase) {
         this.phrase = phrase.toLowerCase();
     }
 
-    // add letter placeholders to display by making one li per char
+    // Add letter placeholders to display by making one <li> per char
     addPhraseToDisplay() {
         const phraseArr = this.phrase.split('');
         let html = '';
 
-        // create a new <li> for each char in phrase
+        // Create a new <li> for each char in phrase
         phraseArr.forEach( char => {
             const regex = /[a-z]/.test(char);
             if(regex){
@@ -29,19 +29,19 @@ class Phrase {
         ul.insertAdjacentHTML('beforeend', html);
     }
 
-    // checks if a hidden letter matches player's choice
+    // Checks if a hidden letter matches player's choice
     checkLetter(letter) {
         const phraseArr = this.phrase.split('');
         let matching = phraseArr.filter( char => char === letter);
         return matching.length > 0;
 }
 
-    // show letter(s) that match player selection
+    // Show letter(s) that match player selection
     showMatchedLetter() {
         const charKey = document.querySelector('.selectedKey').textContent;
         const isMatch = this.checkLetter(charKey);
 
-        // if match found, show all matched char values
+        // If match found, show all matched char values
         if(isMatch) {
             document.querySelectorAll(`.${charKey}`).forEach( li => {
                 li.classList.remove('hide');

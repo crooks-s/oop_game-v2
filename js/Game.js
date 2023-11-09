@@ -4,7 +4,7 @@
 
 let currentPhrase;
 
-// reponsible for managing game's stage, logic, and interactions
+// Reponsible for managing game's stage, logic, and interactions
 class Game {
     constructor(){
         this.missed = 0;
@@ -12,58 +12,54 @@ class Game {
         this.activePhrase = null;
     }
 
-    // called when Start Game button clicked
+    // Called when 'Start Game' button clicked
     startGame() {
-        // hide overlay
+        // Hide overlay
         document.querySelector('#overlay').style.display = 'none';
 
-        // prevents duplicated phrases from showing by emptying <ul>
+        // Prevents duplicated phrases from showing by emptying <ul>
         const ul = document.querySelector('ul');
         while (ul.firstChild) {
             ul.removeChild(ul.firstChild);
         }
 
-        // populate and display an active phrase
-        // do...while ensure previous quote is not displayed again
+        // Populate and display an active phrase
+        // Do...while ensure same quote is not displayed again
         do {
             this.activePhrase = this.getRandomPhrase();
         } while (this.activePhrase.phrase === currentPhrase);
-        
         this.activePhrase.addPhraseToDisplay();
         currentPhrase = this.activePhrase.phrase;
 
-        // refresh and enable all keys
+        // Refresh and enable all keys
         const keys = document.querySelectorAll('#qwerty .key');
-        for(let i = 0; i < keys.length; i++) {
-            keys[i].className = "key";
-            keys[i].disabled = false;
-        }
+        for(const key of keys) {
+            key.className = "key";
+            key.disabled = false;
+        };
 
-        // restore hearts (reversed removeLife)
+        // Restore hearts (reversed removeLife)
         const lostHearts = document.querySelectorAll('img[src="images/lostHeart.png"]');
         const liveHeart = "images/liveHeart.png";
-        for(let i=0; i<lostHearts.length; i++){
-            if (lostHearts[i].src === "file:///Users/seancrooks/Coding/Portfolio-Projects/Team-Treehouse/oop_game-v2/images/lostHeart.png"){
-                lostHearts[i].src = liveHeart;
+        for(const heart of lostHearts){
+            if (heart.src === "file:///Users/seancrooks/Coding/Portfolio-Projects/Team-Treehouse/oop_game-v2/images/lostHeart.png"){
+                heart.src = liveHeart;
             }
-        }
+        };
 
-        // reset ingame message
+        // Reset ingame message to default
         document.querySelector('#container').style.backgroundColor = 'lightblue';
         document.querySelector('#ingame-message').textContent = 'Guess the phrase! Good luck!';
 
-        // allow player to use physical keyboard in game
-        // sets pressedKeys back to empty object per game
+        // Allow player to use physical keyboard in game
+        // Sets pressedKeys back to empty object per game
         const pressedKeys = {};
         document.addEventListener('keyup', (e) => {
             const regex = /[a-z]/.test(e.key);
             if (regex && !pressedKeys[e.key]) {
-                console.log(pressedKeys);
                 pressedKeys[e.key] = true;
                 this.handleInteraction(e);
             } else {
-                console.log(pressedKeys);
-
                 document.querySelector('#container').style.backgroundColor = '#f5785f';
                 document.querySelector('#ingame-message').textContent = 'Please choose a valid letter';
             }
@@ -71,7 +67,7 @@ class Game {
 
     }
 
-    // get a random phrase from phrases array
+    // Get a random phrase from phrases array
     getRandomPhrase() {
         const random = Math.floor(Math.random() * this.phrases.length);
         return this.phrases[random];
@@ -96,21 +92,21 @@ class Game {
             
         }
   
-        // disable selected/clicked key to prevent re-selection
+        // Disable selected/clicked key to prevent re-selection
         hitKey.disabled = true;
 
-        // remove .selectedKey from previous key clicked
+        // Remove .selectedKey from previous key clicked
         const selectedKeyElement = document.querySelector('.selectedKey');
         if (selectedKeyElement) {
         selectedKeyElement.classList.remove('selectedKey');
         }
 
-        // add .selectedKey to new key clicked
+        // Add .selectedKey to new key clicked
         hitKey.classList.add('selectedKey');
         const phraseArr = this.activePhrase.phrase.toLowerCase().split('');
         const matched = phraseArr.filter( char => char === hitKey.textContent );
 
-        // if there was no match, .wrong added and heart removed
+        // If there was no match, .wrong added and heart removed...
         if(matched.length === 0){
             hitKey.classList.add('wrong');
             this.removeLife();
@@ -120,11 +116,9 @@ class Game {
             hitKey.classList.add('chosen');
             this.activePhrase.showMatchedLetter();
 
-
-            // add message to give player when guessed correct
+            // Add message to give player when guessed correct
             document.querySelector('#container').style.backgroundColor = '#78CF82';
             document.querySelector('#ingame-message').textContent = 'You got it right!';
-
 
             if( this.checkForWin() ){
                 this.gameOver();
@@ -133,8 +127,8 @@ class Game {
   
     }
 
-    // replaces life heart with lost heart, and increments missed property
-    // calls gameOver if missed 5 times
+    // Replaces life heart with lost heart, and increments missed property
+    // Calls gameOver if missed 5 times
     removeLife() {
         const liveHearts = document.querySelectorAll('img[src="images/liveHeart.png"]');
         const lostHeart = "images/lostHeart.png";
@@ -146,7 +140,7 @@ class Game {
             }
         }
 
-        // add message to give player when heart lost
+        // Add message to give player when heart lost
         document.querySelector('#container').style.backgroundColor = '#f5785f';
         document.querySelector('#ingame-message').textContent = 'Sorry, try again...';
 
@@ -156,14 +150,13 @@ class Game {
         }
     }
 
-    // if no more hidden letters, then player won
+    // If no more hidden letters, then player won
     checkForWin() {
         const lis = document.querySelectorAll('#phrase li');
         let won = true;
         
         for(let i = 0; i<lis.length; i++){
             const li = lis[i].classList;
-            // if any letter is still hidden, then won is false
             if( li.contains('letter') && li.contains('hide') ){
                 won = false;
             }
@@ -172,7 +165,7 @@ class Game {
         return won; 
     }
 
-    // handles display when player wins or loses, resets display to default settings
+    // Handles display when player wins or loses, resets display to default settings
     gameOver() {
         const overlay = document.querySelector('#overlay')
         overlay.style.display = 'block';
