@@ -55,7 +55,7 @@ class Game {
         // Sets pressedKeys back to empty object per game
         const pressedKeys = {};
         document.addEventListener('keyup', (e) => {
-            const regex = /[a-z]/.test(e.key);
+            const regex = /^[a-z]$/.test(e.key);
             if (regex && !pressedKeys[e.key]) {
                 pressedKeys[e.key] = true;
                 this.handleInteraction(e);
