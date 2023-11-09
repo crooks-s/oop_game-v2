@@ -8,7 +8,7 @@ let game;
 
 // New Game object created and game starts
 startGame.addEventListener('click', () => {
-    game = new Game(0, phrases, null);
+    game = new Game();
     game.startGame();
 });
 
