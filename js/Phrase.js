@@ -3,14 +3,14 @@
  * Phrase.js */
 
 
-// Blueprint for creating phrase objects
+// Blueprint for creating phrase objects and methods
 class Phrase {
     // @param {string} phrase - actual phrase to be represented
     constructor(phrase) {
         this.phrase = phrase.toLowerCase();
     }
 
-    // add letter placeholders to the page by making <li> elements
+    // add letter placeholders to display by making one li per char
     addPhraseToDisplay() {
         const phraseArr = this.phrase.split('');
         let html = '';

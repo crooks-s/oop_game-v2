@@ -21,7 +21,7 @@ class Game {
             ul.removeChild(ul.firstChild);
         }
 
-        // get and display a phrase
+        // populate and display an active phrase
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
 
@@ -32,7 +32,7 @@ class Game {
             keys[i].disabled = false;
         }
 
-        // restore hearts (reversed removeLife())
+        // restore hearts (reversed removeLife)
         const lostHearts = document.querySelectorAll('img[src="images/lostHeart.png"]');
         const liveHeart = "images/liveHeart.png";
         for(let i=0; i<lostHearts.length; i++){
@@ -55,16 +55,16 @@ class Game {
 
         // does something only if a BUTTON is clicked
         if(hitKey.tagName === 'BUTTON'){
-            // disable the selected key to prevent re-selection
+            // disable selected/clicked key to prevent re-selection
             hitKey.disabled = true;
 
-            // remove .selectedKey from previous key selected
+            // remove .selectedKey from previous key clicked
             const selectedKeyElement = document.querySelector('.selectedKey');
             if (selectedKeyElement) {
             selectedKeyElement.classList.remove('selectedKey');
             }
 
-            // add .selectedKey to new key selected
+            // add .selectedKey to new key clicked
             hitKey.classList.add('selectedKey');
             const phraseArr = this.activePhrase.phrase.toLowerCase().split('');
             const matched = phraseArr.filter( char => char === hitKey.textContent );
@@ -87,7 +87,7 @@ class Game {
     }
 
     // replaces life heart with lost heart, and increments missed property
-    // also calls gameOver if missed 5 times
+    // calls gameOver if missed 5 times
     removeLife() {
         const liveHearts = document.querySelectorAll('img[src="images/liveHeart.png"]');
         const lostHeart = "images/lostHeart.png";
@@ -100,7 +100,6 @@ class Game {
         }
 
         this.missed += 1;
-
         if (this.missed === 5) {
             this.gameOver();
         }
@@ -122,7 +121,7 @@ class Game {
         return won; 
     }
 
-    // handles if player wins or loses, resets display to default settings
+    // handles display when player wins or loses, resets display to default settings
     gameOver() {
         const overlay = document.querySelector('#overlay')
         overlay.style.display = 'block';

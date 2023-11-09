@@ -12,7 +12,7 @@ startGame.addEventListener('click', () => {
     game.startGame();
 });
 
-// Handles click events on webpage display keyboard
+// Handles click events on webpage's display-keyboard
 keyrow.addEventListener('click', (e) => {
     if(e.target.tagName === 'BUTTON'){
         game.handleInteraction(e);
