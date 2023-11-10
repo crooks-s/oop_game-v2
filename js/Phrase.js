@@ -52,7 +52,7 @@ class Phrase {
 
 }
 
-// Initialize 5 phrase objects to be used in game
+// Instantiate 5 phrase objects to be used in game
 const p1 = new Phrase('There is no place like home');
 const p2 = new Phrase('Why so serious');
 const p3 = new Phrase('May the force be with you');

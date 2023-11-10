@@ -24,7 +24,7 @@ class Game {
         }
 
         // Populate and display an active phrase
-        // Do...while ensure same quote is not displayed again
+        // Do...while loop ensures same quote is not displayed again
         do {
             this.activePhrase = this.getRandomPhrase();
         } while (this.activePhrase.phrase === currentPhrase);
@@ -140,7 +140,7 @@ class Game {
             }
         }
 
-        // Add message to give player when heart lost
+        // Display message when heart lost
         document.querySelector('#container').style.backgroundColor = '#f5785f';
         document.querySelector('#ingame-message').textContent = 'Sorry, try again...';
 
