@@ -6,10 +6,18 @@ let currentPhrase;
 
 // Reponsible for managing game's stage, logic, and interactions
 class Game {
+
+    /**
+     * @property {integer}      this.missed          - tracks players' incorrect number of guesses
+     * @property {array}        this.phrases         - list of phrases the game may use
+     * @property {string}       this.activePhrase    - the phrase that will be used in-game
+     * @property {object}       this.pressedKeys     - keeps track of keys clicked or pressed       
+     */
     constructor(){
         this.missed = 0;
         this.phrases = phrases;
         this.activePhrase = null;
+        this.pressedKeys = {};
     }
 
     // Called when 'Start Game' button clicked
@@ -42,28 +50,12 @@ class Game {
         const lostHearts = document.querySelectorAll('img[src="images/lostHeart.png"]');
         const liveHeart = "images/liveHeart.png";
         for (const heart of lostHearts){
-            if ( heart.src.endsWith("images/lostHeart.png") ){
                 heart.src = liveHeart;
-            }
         };
 
         // Reset ingame message to default
         document.querySelector('#container').style.backgroundColor = 'lightblue';
         document.querySelector('#ingame-message').textContent = 'Guess the phrase! Good luck!';
-
-        // Allow player to use physical keyboard in game
-        // Sets pressedKeys back to empty object per game
-        const pressedKeys = {};
-        document.addEventListener('keyup', (e) => {
-            const regex = /^[a-z]$/.test(e.key);
-            if (regex && !pressedKeys[e.key]) {
-                pressedKeys[e.key] = true;
-                this.handleInteraction(e);
-            } else {
-                document.querySelector('#container').style.backgroundColor = '#f5785f';
-                document.querySelector('#ingame-message').textContent = 'Please choose a valid letter';
-            }
-        });
 
     }
 
@@ -80,9 +72,11 @@ class Game {
         // Handles when players clicks a key on displayed keyboard
         if(e.type === 'click') {
             hitKey = e.target;
+            game.pressedKeys[hitKey.textContent] = true;
 
         // Handles when players presses a key on physical keyboard
         } else if (e.type === 'keyup') {
+            game.pressedKeys[e.key] = true;
             const keys = document.querySelectorAll('.key');
             for(const key of keys) {
                 if (key.textContent === e.key) {
@@ -107,9 +101,9 @@ class Game {
         const matched = phraseArr.filter( char => char === hitKey.textContent );
 
         // If there was no match, .wrong added and heart removed...
-        if(matched.length === 0){
+        if(matched.length === 0) {
             hitKey.classList.add('wrong');
-            this.removeLife();
+            this.removeLife()
 
         // else there was a match, show letter, and check if won
         } else {
@@ -134,10 +128,8 @@ class Game {
         const liveHearts = document.querySelectorAll('img[src="images/liveHeart.png"]');
         const lostHeart = "images/lostHeart.png";
         for(const heart of liveHearts){
-            if ( heart.src.endsWith("images/liveHeart.png") ){
                 heart.src = lostHeart;
                 break;
-            }
         }
 
         // Display message when heart lost
