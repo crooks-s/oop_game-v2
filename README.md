@@ -1,7 +1,7 @@
 # oop_game-v2
 TeamTreehouse Unit 4 Project
 
-This is Team Treeouse Project demonstrating: 
+This is Team Treehouse project demonstrating: 
 1) DOM manipulation
 2) Array iteration methods
 3) Refactoring and DRYing
