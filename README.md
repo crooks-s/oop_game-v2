@@ -16,4 +16,4 @@ This application presents a game called Phrase Hunter. Upon starting the game, a
 - Added and styled an in-game message for players when they guess correctly or incorrectly.
 
 Author: Sean Crooks
-<br>Contributions: Team Treehouse supplied all files except Phrase.js, Game.js, and app.js. These files were created and written solely by author. 
+<br>Contributions: Team Treehouse supplied all files except 'Phrase.js', 'Game.js', and 'app.js'. These files were created and written solely by author. 
